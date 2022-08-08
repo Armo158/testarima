@@ -1,0 +1,15 @@
+import FinanceDataReader as fdr
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from pmdarima.arima import ndiffs
+import pmdarima as pm
+
+df_krx = fdr.StockListing('KRX')
+ticker = df_krx[df_krx.Name == '삼성전자']['Symbol']
+ss = fdr.DataReader(''.join(ticker.values),'2020-01-01', '2021-08-30')
+
+y_train = ss['Close'][:int(0.7*len(ss))]
+y_test = ss['Close'][int(0.7*len(ss)):]
+y_train.plot()
+y_test.plot()
